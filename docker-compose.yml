@@ -1,0 +1,20 @@
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - frontend
+    networks:
+      - fe-network
+
+  frontend:
+    image: base-nextjs-15
+    ports:
+      - "3000:3000"
+    networks:
+      - fe-network
+networks:
+  fe-network:
